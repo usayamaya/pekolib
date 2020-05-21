@@ -22,14 +22,14 @@ Choose between C and C++ style. Defining PEKO_STRING_C before including peko_str
 #### C Style example
 ```cpp
 peko_string First;
-set_string(&First, "SomeValue");  // First will have an allocated buffer that fits the size of the string automatically
+set_string(&First, "SomeValue"); // First will have an allocated buffer that fits the size of the string automatically
 
 peko_string Second;
 set_string(&Second, &First, 100); // Copies First to Second, Second will have 100 character buffer
 
 concat_string(&Second, &First);
 resize_string(&First, 50);
-trim_string(&Second);             // Reduces the buffer to the string length
+trim_string(&Second);            // Reduces the buffer to the string length
 search_string(&First, "Val", 2, 8);
 substring(&Second, 0, 4);
 clear_string(&First);
