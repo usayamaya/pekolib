@@ -205,7 +205,7 @@ char* substring(peko_string* Source, int Begin, int Run) {
         Temp[Place] = Source->Data[Begin++];
     }
     Temp[Run] = '\0';
-    clear_string(Source);
+    
     set_string(Source, Temp);
     free(Temp);
     
@@ -435,7 +435,7 @@ char* peko_string::substring(int Begin, int Run) {
         Temp[Place] = this->Data[Begin++];
     }
     Temp[Run] = '\0';
-    this->clear();
+    int AllocSize = this->AllocSize;
     this->set(Temp);
     free(Temp);
     
