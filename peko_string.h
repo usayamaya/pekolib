@@ -33,7 +33,7 @@ struct peko_string {
 
 // If Source is longer than Destination->AllocSize, resizes Destination
 void copy_string(peko_string* Destination, const char* Source, int Length) {
-    if (Destination->AllocSize < Length) {
+    if (Destination->AllocSize != Length) {
         if (Destination->Data) {
             free(Destination->Data);
         }
@@ -79,7 +79,7 @@ void reallocate_string(peko_string* Source, int AllocSize) {
     peko_string Temp;
     set_string(&Temp, Source->Data, AllocSize);
     clear_string(Source);
-    Source->Data = Temp.Data;
+    set_string(Source, Temp.Data, AllocSize);
     Source->AllocSize = AllocSize;
 }
 
@@ -96,9 +96,7 @@ void trim_string(peko_string* Source) {
         return;
     }
     
-    int L = Source->Length;
-    reallocate_string(Source, L);
-    Source->Length = L;
+    reallocate_string(Source, Source->Length);
 }
 
 void resize_string(peko_string* Source, int AllocSize) {
@@ -106,9 +104,7 @@ void resize_string(peko_string* Source, int AllocSize) {
         return;
     }
     
-    int L = Source->Length;
     reallocate_string(Source, AllocSize);
-    Source->Length = L;
     
     if (Source->Length > AllocSize) {
         Source->Length = AllocSize;
@@ -274,7 +270,7 @@ void peko_string::operator=(const char* RHS) {
 
 // If Source is longer than this->AllocSize, resizes this string
 void peko_string::copy(const char* Source, int Length) {
-    if (this->AllocSize < Length) {
+    if (this->AllocSize != Length) {
         if (this->Data) {
             free(this->Data);
         }
@@ -316,6 +312,7 @@ void peko_string::realloc(int AllocSize) {
     peko_string Temp(this->Data, AllocSize);
     this->clear();
     this->set(Temp.Data, AllocSize);
+    this->AllocSize = AllocSize;
 }
 
 void peko_string::trim(void) {
@@ -337,9 +334,7 @@ void peko_string::resize(int AllocSize) {
         return;
     }
     
-    int L = this->Length;
     this->realloc(AllocSize);
-    this->Length = L;
     
     if (this->Length > AllocSize) {
         this->Length = AllocSize;
