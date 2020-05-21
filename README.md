@@ -52,6 +52,7 @@ First.concat(&Second);
 Second.resize(256);
 Second.trim();
 First.search("Val", 2, 8);
+// substring() behaves a little strangely compared to usual implementations. Second.Data becomes the substring after the call, and a pointer to that Data is returned from the function to facilitate ease of setting another string
 First = Second.substring(5, Second.Length);
 First.clear();
 ```
