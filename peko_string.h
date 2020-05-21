@@ -33,7 +33,7 @@ struct peko_string {
 
 // If Source is longer than Destination->AllocSize, resizes Destination
 void copy_string(peko_string* Destination, const char* Source, int Length) {
-    if (Destination->AllocSize != Length) {
+    if (Destination->AllocSize < Length) {
         if (Destination->Data) {
             free(Destination->Data);
         }
@@ -270,7 +270,7 @@ void peko_string::operator=(const char* RHS) {
 
 // If Source is longer than this->AllocSize, resizes this string
 void peko_string::copy(const char* Source, int Length) {
-    if (this->AllocSize != Length) {
+    if (this->AllocSize < Length) {
         if (this->Data) {
             free(this->Data);
         }
