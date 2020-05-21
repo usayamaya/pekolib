@@ -63,7 +63,9 @@ void set_string(peko_string* Destination, peko_string* Source) {
 }
 
 void clear_string(peko_string* String) {
-    assert(String);
+    if (!String) {
+        return;
+    }
     
     if (String->Data) {
         free(String->Data);
@@ -82,7 +84,10 @@ void reallocate_string(peko_string* Source, int AllocSize) {
 }
 
 void trim_string(peko_string* Source) {
-    assert(Source);
+    if (!Source) {
+        return;
+    }
+    
     if (Source->Length == 0) {
         return;
     }
@@ -139,7 +144,7 @@ void concat_string(peko_string* Destination, peko_string* Second) {
 
 // NOTE: Inclusive Start, Exclusive End (5->9 will do indices 5,6,7,8)
 // End is NOT the Run of the amount of characters to search, but
-// the final index.
+// the final index. Returns -1 if it cannot find the Substring.
 int search_string(peko_string* Source, char* Substring, int Start = 0, int End = 0) {
     int NotFound = -1;
     
@@ -205,7 +210,7 @@ char* substring(peko_string* Source, int Begin, int Run) {
     }
     Temp[Run] = '\0';
     clear_string(Source);
-    set_string(Source, Temp, Run+1);
+    set_string(Source, Temp);
     free(Temp);
     
     return(Source->Data);
