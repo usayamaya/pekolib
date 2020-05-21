@@ -305,7 +305,7 @@ void peko_string::set(peko_string* Source) {
 
 void peko_string::clear() {
     if (this->Data) {
-        //free(this->Data);
+        free(this->Data);
     }
     this->Data = nullptr;
     this->Length = 0;
