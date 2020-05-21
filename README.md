@@ -1,5 +1,5 @@
 # pekolib
-General purpose C++ library for assorted functionality and types. Some types include both a C-style and C++ style api.
+General purpose single-header C++ library for assorted functionality and types. Some types include both a C-style and C++ style api.
 
 ## peko_string
 peko_string is a string type that wraps a char* so that the character data is mutable, while maintaining ease of use you may expect from a higher level string library.
